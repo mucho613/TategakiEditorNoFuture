@@ -12,7 +12,7 @@ RECT clientRect;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-  switch (msg) { 
+  switch (msg) {
   case WM_PAINT:
     GetClientRect(hWnd, &clientRect);
     SetWindowPos(hWndRichEdit, NULL, clientRect.left, clientRect.top, clientRect.right, clientRect.bottom, SWP_NOOWNERZORDER);
@@ -23,8 +23,8 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
   }
   return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-              
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, int nShowCmd)
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
   MSG msg;
   WNDCLASS wc;
@@ -45,7 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, 
   }
 
   hWnd = CreateWindow(TEXT("Test"), TEXT("TategakiEditor"),
-    WS_VISIBLE | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX | WS_POPUP,
+    WS_VISIBLE | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX | WS_THICKFRAME,
     0, 0, WIDTH, HEIGHT, NULL, NULL, hInstance, NULL);
 
   LoadLibrary(TEXT("Msftedit.dll"));
@@ -61,10 +61,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, 
     return -1;
   }
 
+  ShowWindow(hWnd, nShowCmd);
+  UpdateWindow(hWnd);
+
   while (GetMessage(&msg, NULL, 0, 0)) {
     TranslateMessage(&msg);
     DispatchMessage(&msg);
-  }                                                                             
+  }
 
   UnregisterClass(TEXT("Test"), hInstance);
 

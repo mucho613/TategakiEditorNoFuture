@@ -16,7 +16,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
   case WM_PAINT:
     GetClientRect(hWnd, &clientRect);
     SetWindowPos(hWndRichEdit, NULL, clientRect.left, clientRect.top, clientRect.right, clientRect.bottom, SWP_NOOWNERZORDER);
-    break;
+    return 0;
   case WM_DESTROY:
     PostQuitMessage(0);
     return 0;
